@@ -1,6 +1,6 @@
 package ch.cern.todo.services;
 
-import ch.cern.todo.controllers.POJO.NewTaskPOJO;
+import ch.cern.todo.controllers.POJO.TaskPOJO;
 import ch.cern.todo.model.Task;
 import ch.cern.todo.repositories.TaskCategoryRepository;
 import ch.cern.todo.repositories.TaskRepository;
@@ -16,20 +16,19 @@ public class TaskServiceImpl implements TaskService {
     private TaskCategoryRepository categoryRepo;
 
     @Override
-    public Task saveTask(NewTaskPOJO task) {
+    public Task save(TaskPOJO task) {
         return taskRepo.save(
                 Task.builder()
                         .name(task.getName())
                         .description(task.getDescription())
                         .deadline(task.getDeadline())
-                        //We use get as it will always have a category
-                        .category(categoryRepo.findById(task.getCategoryId()).get())
+                        .category(categoryRepo.findById(task.getCategoryId()).orElse(null))
                         .build()
         );
     }
 
     @Override
-    public Optional<Task> getTask(long id) {
+    public Optional<Task> get(long id) {
         return taskRepo.findById(id);
     }
 
@@ -39,7 +38,25 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void deleteTask(long id) {
+    public void delete(long id) {
         taskRepo.deleteById(id);
+    }
+
+    @Override
+    public Optional<Task> update(long id, TaskPOJO task) {
+        var oToUpdate = taskRepo.findById(id);
+        if(oToUpdate.isEmpty()) return oToUpdate;
+
+        var toUpdate = oToUpdate.get();
+        if(task.getName() != null) toUpdate.setName(task.getName());
+        if(task.getDescription() != null) toUpdate.setDescription(task.getDescription());
+        if(task.getDeadline() != null) toUpdate.setDeadline(task.getDeadline());
+        if(task.getCategoryId() != null) {
+            var category = categoryRepo.findById(task.getCategoryId());
+            if(category.isPresent()) toUpdate.setCategory(category.get());
+        }
+        taskRepo.save(toUpdate);
+
+        return Optional.of(toUpdate);
     }
 }

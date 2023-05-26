@@ -1,7 +1,6 @@
 package ch.cern.todo.controllers;
 
-import ch.cern.todo.controllers.POJO.NewCategoryPOJO;
-import ch.cern.todo.model.Task;
+import ch.cern.todo.controllers.POJO.CategoryPOJO;
 import ch.cern.todo.model.TaskCategory;
 import ch.cern.todo.services.TaskCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class CategoryController {
 
     @PostMapping("/new")
     public ResponseEntity<TaskCategory> newCategory(
-            @RequestBody NewCategoryPOJO category
+            @RequestBody CategoryPOJO category
     ) {
         var saved = categoryService.save(category);
         return ResponseEntity.ok(saved);
@@ -30,10 +29,10 @@ public class CategoryController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> newTask(
+    public ResponseEntity<String> deleteTask(
             @PathVariable long id
     ) {
-        categoryService.deleteCategory(id);
+        categoryService.delete(id);
         return ResponseEntity.ok("Deleted");
     }
 }
