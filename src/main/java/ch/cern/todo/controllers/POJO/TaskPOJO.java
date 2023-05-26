@@ -7,9 +7,9 @@ import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Value
-public class NewTaskPOJO {
+public class TaskPOJO {
     private String name;
     private String description;
     private Date deadline;
-    private long categoryId;
+    private Long categoryId;
 }

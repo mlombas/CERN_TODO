@@ -5,7 +5,7 @@ import lombok.Value;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Value
-public class NewCategoryPOJO {
+public class CategoryPOJO {
     private String name;
     private String description;
 }

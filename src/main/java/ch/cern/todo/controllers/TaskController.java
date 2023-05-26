@@ -1,6 +1,6 @@
 package ch.cern.todo.controllers;
 
-import ch.cern.todo.controllers.POJO.NewTaskPOJO;
+import ch.cern.todo.controllers.POJO.TaskPOJO;
 import ch.cern.todo.model.Task;
 import ch.cern.todo.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class TaskController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Task> getTask(@PathVariable long id) {
-        return ResponseEntity.of(taskService.getTask(id));
+        return ResponseEntity.of(taskService.get(id));
     }
 
     @GetMapping("/list")
@@ -28,17 +28,25 @@ public class TaskController {
 
     @PostMapping("/new")
     public ResponseEntity<Task> newTask(
-            @RequestBody NewTaskPOJO task
+            @RequestBody TaskPOJO task
     ) {
-        var saved = taskService.saveTask(task);
+        var saved = taskService.save(task);
         return ResponseEntity.ok(saved);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> newTask(
+    public ResponseEntity<String> deleteTask(
             @PathVariable long id
     ) {
-        taskService.deleteTask(id);
+        taskService.delete(id);
         return ResponseEntity.ok("Deleted");
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Task> updateTask(
+            @PathVariable long id, @RequestBody TaskPOJO task
+    ) {
+        var saved = taskService.update(id, task);
+        return ResponseEntity.of(saved);
     }
 }
