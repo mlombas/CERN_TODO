@@ -26,4 +26,9 @@ public class TaskCategoryServiceImpl implements TaskCategoryService {
     public List<TaskCategory> getAll() {
         return (List<TaskCategory>) categoryRepo.findAll();
     }
+
+    @Override
+    public void deleteCategory(long id) {
+        categoryRepo.deleteById(id);
+    }
 }

@@ -33,4 +33,12 @@ public class TaskController {
         var saved = taskService.saveTask(task);
         return ResponseEntity.ok(saved);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> newTask(
+            @PathVariable long id
+    ) {
+        taskService.deleteTask(id);
+        return ResponseEntity.ok("Deleted");
+    }
 }

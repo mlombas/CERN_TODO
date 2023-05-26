@@ -13,4 +13,6 @@ public interface TaskService {
     Optional<Task> getTask(long id);
 
     List<Task> getAll();
+
+    void deleteTask(long id);
 }

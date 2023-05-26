@@ -11,4 +11,6 @@ public interface TaskCategoryService {
     TaskCategory save(NewCategoryPOJO category);
 
     List<TaskCategory> getAll();
+
+    void deleteCategory(long id);
 }

@@ -28,4 +28,12 @@ public class CategoryController {
     public ResponseEntity<List<TaskCategory>> getAll() {
         return ResponseEntity.ok(categoryService.getAll());
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> newTask(
+            @PathVariable long id
+    ) {
+        categoryService.deleteCategory(id);
+        return ResponseEntity.ok("Deleted");
+    }
 }
