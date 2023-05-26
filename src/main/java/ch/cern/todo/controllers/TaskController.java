@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController(value = "/task")
-public class TODOController {
+import java.util.List;
+
+@RestController
+@RequestMapping("task")
+public class TaskController {
 
     @Autowired
     TaskService taskService;
@@ -16,6 +19,11 @@ public class TODOController {
     @GetMapping("/get/{id}")
     public ResponseEntity<Task> getTask(@PathVariable long id) {
         return ResponseEntity.of(taskService.getTask(id));
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<Task>> getAll() {
+        return ResponseEntity.ok(taskService.getAll());
     }
 
     @PostMapping("/new")

@@ -11,4 +11,5 @@ public class NewTaskPOJO {
     private String name;
     private String description;
     private Date deadline;
+    private long categoryId;
 }
