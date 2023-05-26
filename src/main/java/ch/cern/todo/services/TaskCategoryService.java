@@ -5,6 +5,7 @@ import ch.cern.todo.model.TaskCategory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface TaskCategoryService {
@@ -13,4 +14,6 @@ public interface TaskCategoryService {
     List<TaskCategory> getAll();
 
     void delete(long id);
+
+    Optional<TaskCategory> update(long id, CategoryPOJO category);
 }

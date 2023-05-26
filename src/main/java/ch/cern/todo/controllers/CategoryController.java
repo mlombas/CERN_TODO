@@ -35,4 +35,12 @@ public class CategoryController {
         categoryService.delete(id);
         return ResponseEntity.ok("Deleted");
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<TaskCategory> updateTask(
+            @PathVariable long id, @RequestBody CategoryPOJO category
+    ) {
+        var saved = categoryService.update(id, category);
+        return ResponseEntity.of(saved);
+    }
 }
