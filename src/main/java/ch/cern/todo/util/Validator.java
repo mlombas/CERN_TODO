@@ -27,6 +27,12 @@ public class Validator {
                 category.getDescription() != null && string(category.getDescription());
     }
 
+    public static boolean categoryPOJOAllowNullParameters(CategoryPOJO category) {
+        return category != null &&
+                string(category.getName()) &&
+                string(category.getDescription());
+    }
+
     public static boolean string(String s) {
         return s == null || !s.isBlank();
     }

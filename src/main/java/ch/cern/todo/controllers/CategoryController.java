@@ -1,6 +1,7 @@
 package ch.cern.todo.controllers;
 
 import ch.cern.todo.controllers.POJO.CategoryPOJO;
+import ch.cern.todo.model.Task;
 import ch.cern.todo.model.TaskCategory;
 import ch.cern.todo.services.TaskCategoryService;
 import ch.cern.todo.util.Validator;
@@ -16,6 +17,16 @@ public class CategoryController {
     @Autowired
     private TaskCategoryService categoryService;
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<TaskCategory> getTask(@PathVariable long id) {
+        return ResponseEntity.of(categoryService.get(id));
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<TaskCategory>> getAll() {
+        return ResponseEntity.ok(categoryService.getAll());
+    }
+
     @PostMapping("/new")
     public ResponseEntity<TaskCategory> newCategory(
             @RequestBody CategoryPOJO category
@@ -24,11 +35,6 @@ public class CategoryController {
 
         var saved = categoryService.save(category);
         return ResponseEntity.ok(saved);
-    }
-
-    @GetMapping("/list")
-    public ResponseEntity<List<TaskCategory>> getAll() {
-        return ResponseEntity.ok(categoryService.getAll());
     }
 
     @DeleteMapping("/delete/{id}")
@@ -46,7 +52,7 @@ public class CategoryController {
             @PathVariable long id, @RequestBody CategoryPOJO category
     ) {
         if(!categoryService.exists(id)) return ResponseEntity.notFound().build();
-        if(!Validator.CategoryPOJO(category)) return ResponseEntity.badRequest().build();
+        if(!Validator.categoryPOJOAllowNullParameters(category)) return ResponseEntity.badRequest().build();
 
         var saved = categoryService.update(id, category);
         return ResponseEntity.of(saved);

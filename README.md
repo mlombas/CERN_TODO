@@ -5,6 +5,7 @@ The following operations are supported:
 - List all tasks
 - List specific task (by id)
 - List all categories
+- List specific category (by id)
 - Update task
 - Update category
 - Delete task

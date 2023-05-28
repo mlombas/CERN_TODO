@@ -23,6 +23,11 @@ public class TaskCategoryServiceImpl implements TaskCategoryService {
     }
 
     @Override
+    public Optional<TaskCategory> get(long id) {
+        return categoryRepo.findById(id);
+    }
+
+    @Override
     public List<TaskCategory> getAll() {
         return (List<TaskCategory>) categoryRepo.findAll();
     }

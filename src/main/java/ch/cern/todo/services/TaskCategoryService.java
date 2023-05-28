@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface TaskCategoryService {
     TaskCategory save(CategoryPOJO category);
 
+    Optional<TaskCategory> get(long id);
+
     List<TaskCategory> getAll();
 
     void delete(long id);
