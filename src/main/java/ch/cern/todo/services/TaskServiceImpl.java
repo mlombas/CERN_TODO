@@ -59,4 +59,9 @@ public class TaskServiceImpl implements TaskService {
 
         return Optional.of(toUpdate);
     }
+
+    @Override
+    public boolean exists(long id) {
+        return taskRepo.findById(id).isPresent();
+    }
 }
