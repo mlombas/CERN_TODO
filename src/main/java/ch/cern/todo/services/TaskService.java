@@ -17,4 +17,6 @@ public interface TaskService {
     void delete(long id);
 
     Optional<Task> update(long id, TaskPOJO task);
+
+    boolean exists(long id);
 }

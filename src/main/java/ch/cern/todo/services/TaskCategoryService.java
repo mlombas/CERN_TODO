@@ -16,4 +16,6 @@ public interface TaskCategoryService {
     void delete(long id);
 
     Optional<TaskCategory> update(long id, CategoryPOJO category);
+
+    boolean exists(long id);
 }

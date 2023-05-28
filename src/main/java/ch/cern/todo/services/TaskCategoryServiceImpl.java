@@ -44,4 +44,9 @@ public class TaskCategoryServiceImpl implements TaskCategoryService {
 
         return Optional.of(toUpdate);
     }
+
+    @Override
+    public boolean exists(long id) {
+        return categoryRepo.findById(id).isPresent();
+    }
 }
